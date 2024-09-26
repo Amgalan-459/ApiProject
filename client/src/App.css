@@ -1,0 +1,30 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+#movies {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10;
+  justify-content: space-between;
+  text-align: center;
+  margin: 10;
+}
+
+.col-md-3 {
+  padding: 10;
+  margin: 10;
+}
+
+#searchForm {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10;
+  padding: 10;
+  align-items: center;
+}
