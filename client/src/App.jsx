@@ -10,6 +10,7 @@ let movies = []
 function App() {
   const [movieName, setMovieName] = useState('')
   const [movieDate, setMovieDate] = useState(0)
+  const [count, setCount] = useState(0)
 
   const movieNameHandler= (e) => {
     setMovieName(e.target.value);
@@ -23,7 +24,10 @@ function App() {
       movies = []
       getData();
     }
-    //e.preventDefault();
+    e.preventDefault();
+  }
+  const countHandler = (e) => {
+    setCount(count+1);
   }
 
 
@@ -68,7 +72,7 @@ function App() {
                       value={movieDate}
                       onChange={e => movieDateHandler(e)} 
                       type="number"id="searchYear"/>
-                    <button type="submit">Submit</button>
+                    <button type="submit" onClick={e => countHandler(e)}>Submit</button>
                 </form>
             </div>
           </div>
@@ -81,6 +85,8 @@ function App() {
             })}
           </div>
         </div>
+
+        <h3>Count of requests: {count}</h3>
       </div>
     </>
   )
