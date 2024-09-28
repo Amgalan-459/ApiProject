@@ -26,11 +26,14 @@ app.post('/', (req, res) => {
         })
         .then((data) => {
             let mainData = data['Search']
-
             let result = []
-            mainData.forEach(el => {
-                result.push(el);
-            });
+            
+            if (mainData !== undefined) {
+                mainData.forEach(el => {
+                    result.push(el);
+                });
+            }
+            
 
             //console.log(result)
 

@@ -80,9 +80,10 @@ function App() {
 
         <div class="container">
           <div id="movies">
-            {movies.map(function (value, index, array) {
-              return (<MovieLight poster={value['Poster']} title={value['Title']}/>)
-            })}
+            {
+              movies.map(function (value, index, array) {
+                return (<MovieLight poster={value['Poster']} title={value['Title']}/>)
+              })}
           </div>
         </div>
 
