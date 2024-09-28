@@ -31,6 +31,7 @@ function App() {
   }
 
 
+
   function getData() {
     fetch(
       "http://127.0.0.1:3001/",
@@ -52,6 +53,8 @@ function App() {
           datajson.forEach(el => {
             movies.push(el)
           });
+          setMovieName("")
+          setMovieDate(0)
         })
   }
   
@@ -79,6 +82,7 @@ function App() {
         </div>
 
         <div class="container">
+          <h5>Founded {movies.length} results</h5>
           <div id="movies">
             {
               movies.map(function (value, index, array) {

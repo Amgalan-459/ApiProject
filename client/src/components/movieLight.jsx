@@ -6,7 +6,7 @@ function movieLight({poster, title}) {
                  <div class="text-center">
                   <img src={poster} class="img-fluid mt-4"/>
                    <h5 class="text-white pt-3">{title}</h5>
-                   <a  href="#">Movie Details</a>
+                   <a href="#">Movie Details</a>
                  </div>
                 </div>
   </div>;
