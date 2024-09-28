@@ -1,20 +1,22 @@
-import { useState } from 'react'
+import { useState, useReducer, act } from 'react'
 import MovieLight from '../components/movieLight.jsx'
 
 
 let movies = []
 
-function HomePage() {
-  const [movieName, setMovieName] = useState('')
-  const [movieDate, setMovieDate] = useState(0)
-  const [count, setCount] = useState(0)
+function countReducer(state, action) {
+  return action.c;
+}
 
-  const movieNameHandler= (e) => {
-    setMovieName(e.target.value);
-  }
-  const movieDateHandler= (e) => {
-    setMovieDate(e.target.value);
-  }
+function formReducer(state, action) {
+  return action.val;
+}
+
+function HomePage() {
+  const [movieName, dispatchName] = useReducer(formReducer, '')
+  const [movieDate, dispatchDate] = useReducer(formReducer, 0)
+  const [count, dispatchC] = useReducer(countReducer, 0)
+
   const submitHandler = (e) => {
     if (movieName != ''){
       console.log(movieName + ' ' + movieDate);
@@ -23,8 +25,20 @@ function HomePage() {
     }
     e.preventDefault();
   }
+  const movieNameHandler = (e) => {
+    dispatchName({
+      val: e.target.value
+    })
+  }
+  const movieDateHandler = (e) => {
+    dispatchDate({
+      val: e.target.value
+    })
+  }
   const countHandler = (e) => {
-    setCount(count+1);
+    dispatchC({
+      c: count+1
+    })
   }
 
 
@@ -50,8 +64,12 @@ function HomePage() {
           datajson.forEach(el => {
             movies.push(el)
           });
-          setMovieName("")
-          setMovieDate(0)
+          dispatchName({
+            val: ''
+          })
+          dispatchDate({
+            val: 0
+          })
         })
   }
   
