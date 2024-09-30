@@ -4,30 +4,52 @@ import { useState } from 'react'
 
 let movie = "nothing yet";
 
+
+
 function MovieDetails() {
     const params = useParams();
     const [name, setName] = useState('')
+    const [comment, setComment] = useState('')
 
     const nameChangeHandler = (e) => {
         setName(e.target.value)
     }
-
-    function GetMovie() {
-        fetch(`https://www.omdbapi.com/?&apikey=db5f16ed&i=${params.id}`)
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-            //console.log(data)
-
-            console.log('Title: ', data['Title'])
-            movie = data;
-
-            setName('some_user')
-        })
+    const commentHandler = (e) => {
+        setComment(e.target.value);
+    }
+    const submitHandler = (e) => {
+        if (name != '' && comment != '') {
+            fetch(
+                "http://127.0.0.1:3001/Comment",
+                {
+                method: "post",
+                body: JSON.stringify({
+                        movieId: `${params.id}`,
+                        userName: name,
+                        com: comment
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }
+                ).then((data) => {
+                    if (data.status == 200) {
+                    console.log('RESPONSE!');
+                    return data.json();
+                    }
+                }).then((datajson) => {
+                    console.log(datajson)
+                })
+        }
+        setName('')
+        setComment('')
+        e.preventDefault();
     }
 
-    GetMovie();
+
+    
+
+    GetMovie(); //здесь лишний раз запршивает
 
     // return(
     //     <div>            
@@ -35,7 +57,7 @@ function MovieDetails() {
     //         <Link to="/">Back to search</Link>
     //     </div>
     // )
-    console.log('movie: ', movie)
+    //console.log('movie: ', movie)
 
     return (
         <>
@@ -45,13 +67,13 @@ function MovieDetails() {
                 <img src={movie['Poster']} />
                 </div>
                     <div>
-                    <h2  >{movie['Title']}</h2>
-                    <ul class="list-group">
-                        <li class="list-group-item"><strong>Released:</strong>{movie['Released']}</li>
-                        <li class="list-group-item"><strong>IMDB Rating:</strong>{movie['imdbRating']}</li>
-                        <li class="list-group-item"><strong>Director:</strong>{movie['Director']}</li>
-                        <li class="list-group-item"><strong>Actors:</strong>{movie['Actors']}</li>
-                    </ul>
+                        <h2  >{movie['Title']}</h2>
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Released:</strong>{movie['Released']}</li>
+                            <li class="list-group-item"><strong>IMDB Rating:</strong>{movie['imdbRating']}</li>
+                            <li class="list-group-item"><strong>Director:</strong>{movie['Director']}</li>
+                            <li class="list-group-item"><strong>Actors:</strong>{movie['Actors']}</li>
+                        </ul>
                     </div>
                 </div>
     
@@ -64,9 +86,15 @@ function MovieDetails() {
                 </div>
 
                 <div>
-                    <label >Your name:
-                        <input type="text" onChange={e => nameChangeHandler(e)}/>
-                    </label>
+                    <form onSubmit={e => submitHandler(e)} method='post'>
+                        <label >Your name:
+                            <input type="text" onChange={e => nameChangeHandler(e)}/>
+                        </label>
+                        <label>Comment: 
+                            <input type="text" onChange={e => commentHandler(e)}/>
+                        </label>
+                        <button type='submit'>Send</button>
+                    </form>
                 </div>
             </div>
         </>
