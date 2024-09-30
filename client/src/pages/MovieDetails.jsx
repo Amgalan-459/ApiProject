@@ -46,7 +46,21 @@ function MovieDetails() {
         e.preventDefault();
     }
 
+    function GetMovie() {
+        fetch(`https://www.omdbapi.com/?&apikey=db5f16ed&i=${params.id}`)
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            //console.log(data)
 
+            console.log('Title: ', data['Title'])
+            movie = data;
+
+            setName('some_user')
+            setComment('')
+        })
+    }
     
 
     GetMovie(); //здесь лишний раз запршивает
@@ -86,7 +100,7 @@ function MovieDetails() {
                 </div>
 
                 <div>
-                    <form onSubmit={e => submitHandler(e)} method='post'>
+                    <form onSubmit={e => submitHandler(e)}>
                         <label >Your name:
                             <input type="text" onChange={e => nameChangeHandler(e)}/>
                         </label>
