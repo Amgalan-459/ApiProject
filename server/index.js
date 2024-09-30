@@ -23,7 +23,7 @@ app.post('/', (req, res) => {
     res.status(200);
 
     if (info[1] == '0'){
-        let movies = fetch(`https://www.omdbapi.com/?&apikey=561c6724&s=${info[0]}}`)
+        let movies = fetch(`https://www.omdbapi.com/?&apikey=561c6724&s=${info[0]}`)
         .then((res) => {
             return res.json();
         })
@@ -104,7 +104,7 @@ app.listen(port, () => {
 });
 
 // pool.query(
-//     'SELECT name, comment from comments',
+//     'SELECT movieId, name, comment from comments',
 //     (error, results) => {
 //         if (error) {
 //             console.log(error)
